@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UdemyNLayerProject.Core.Models;
+using UdemyNLayerProject.Data.Configurations;
 
 namespace UdemyNLayerProject.Data
 {
@@ -20,6 +21,8 @@ namespace UdemyNLayerProject.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
         }
     }
 }
