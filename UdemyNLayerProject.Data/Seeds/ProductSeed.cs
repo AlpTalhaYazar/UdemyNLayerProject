@@ -22,9 +22,9 @@ namespace UdemyNLayerProject.Data.Seeds
             builder.HasData(new Product { Id = 1, Name = "Needle pen", Price = 12.50m, Stock = 100, CategoryId = _ids[0] },
                             new Product { Id = 2, Name = "Pencil", Price = 40.50m, Stock = 200, CategoryId = _ids[0] },
                             new Product { Id = 3, Name = "Pen", Price = 500m, Stock = 300, CategoryId = _ids[0] },
-                            new Product { Id = 4, Name = "Small notebook ", Price = 12.50m, Stock = 300, CategoryId = _ids[1] },
-                            new Product { Id = 5, Name = "Middle notebook ", Price = 12.50m, Stock = 300, CategoryId = _ids[1] },
-                            new Product { Id = 6, Name = "Large notebook ", Price = 12.50m, Stock = 300, CategoryId = _ids[1] }
+                            new Product { Id = 4, Name = "Small notebook", Price = 12.50m, Stock = 300, CategoryId = _ids[1] },
+                            new Product { Id = 5, Name = "Middle notebook", Price = 12.50m, Stock = 300, CategoryId = _ids[1] },
+                            new Product { Id = 6, Name = "Large notebook", Price = 12.50m, Stock = 300, CategoryId = _ids[1] }
                             );
         }
     }
