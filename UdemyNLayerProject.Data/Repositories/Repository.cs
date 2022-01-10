@@ -15,7 +15,7 @@ namespace UdemyNLayerProject.Data.Repositories
         protected readonly DbContext _context;
         private readonly DbSet<TEntity> _dbSet;
 
-        public Repository(DbContext context)
+        public Repository(AppDbContext context)
         {
             this._context = context;
             this._dbSet = context.Set<TEntity>();
@@ -63,9 +63,9 @@ namespace UdemyNLayerProject.Data.Repositories
             return entity;
         }
 
-        public IEnumerable<TEntity> Where(Expression<Func<TEntity, bool>> predicate)
+        public async Task<IEnumerable<TEntity>> Where(Expression<Func<TEntity, bool>> predicate)
         {
-            return this._dbSet.Where(predicate);
+            return await this._dbSet.Where(predicate).ToListAsync();
         }
     }
 }

@@ -20,9 +20,9 @@ namespace UdemyNLayerProject.Data.UnitOfWork
             this._appDbContext = appDbContext;
         }
 
-        public IProductRepository Product => _productRepository = _productRepository ?? new ProductRepository(_appDbContext);
+        public IProductRepository Products => _productRepository = _productRepository ?? new ProductRepository(_appDbContext);
 
-        public ICategoryRepository Category => _categoryRepository = _categoryRepository ?? new CategoryRepository(_appDbContext);
+        public ICategoryRepository Categories => _categoryRepository = _categoryRepository ?? new CategoryRepository(_appDbContext);
 
         public void Commit()
         {
