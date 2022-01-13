@@ -1,6 +1,4 @@
-﻿using UdemyNLayerProject.Core.Models;
-
-namespace UdemyNLayerProject.API.DTOs
+﻿namespace UdemyNLayerProject.API.DTOs
 {
     public class CategoryWithProductDto : CategoryDto
     {

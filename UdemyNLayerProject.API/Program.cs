@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UdemyNLayerProject.Core.Repositories;
 using UdemyNLayerProject.Core.Services;
@@ -25,6 +26,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     });
 
 builder.Services.AddControllers();
+
+builder.Services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

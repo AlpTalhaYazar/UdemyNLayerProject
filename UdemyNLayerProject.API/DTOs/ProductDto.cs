@@ -1,4 +1,6 @@
-﻿namespace UdemyNLayerProject.API.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace UdemyNLayerProject.API.DTOs
 {
     public class ProductDto
     {
