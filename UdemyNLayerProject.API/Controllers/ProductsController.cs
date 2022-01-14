@@ -51,9 +51,9 @@ namespace UdemyNLayerProject.API.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update(ProductDto productDto)
+        public IActionResult Update(UpdateProductDto updateProductDto)
         {
-            var product = this._productService.Update(this._mapper.Map<Product>(productDto));
+            var product = this._productService.Update(this._mapper.Map<Product>(updateProductDto));
             return NoContent();
         }
 
