@@ -10,9 +10,14 @@ namespace UdemyNLayerProject.API.DTOs
         public int CategoryId { get; set; }
     }
 
-    public class UpdateProductDto : ProductDto
+    
+    public class UpdateProductDto
     {
-        public int id { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Stock { get; set; }
+        public decimal Price { get; set; }
+        public int CategoryId { get; set; }
     }
 
     public class ProductWithCategoryDto : ProductDto

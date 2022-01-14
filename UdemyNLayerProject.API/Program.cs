@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UdemyNLayerProject.API.Filters;
@@ -8,6 +9,7 @@ using UdemyNLayerProject.Data;
 using UdemyNLayerProject.Data.Repositories;
 using UdemyNLayerProject.Data.UnitOfWork;
 using UdemyNLayerProject.Service.Services;
+using UdemyNLayerProject.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,10 +27,17 @@ builder.Services.AddScoped(typeof(NotFoundFilter<>));
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), o => o.MigrationsAssembly("UdemyNLayerProject.Data"));
+        options.UseSqlServer(builder.Configuration
+               .GetConnectionString( "DefaultConnection"), 
+                                     o => o.MigrationsAssembly("UdemyNLayerProject.Data"));
     });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+                .AddFluentValidation(o => 
+                    { 
+                        o.RegisterValidatorsFromAssemblyContaining<Program>(); 
+                        o.DisableDataAnnotationsValidation = true; 
+                    });
 
 builder.Services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -43,6 +52,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCustomException();
 
 app.UseAuthorization();
 

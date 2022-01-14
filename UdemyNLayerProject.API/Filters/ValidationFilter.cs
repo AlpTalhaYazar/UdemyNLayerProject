@@ -20,6 +20,7 @@ namespace UdemyNLayerProject.API.Filters
                 {
                     errorDto.Errors.Add(x.ErrorMessage);
                 });
+
                 context.Result = new BadRequestObjectResult(errorDto);
             }
         }

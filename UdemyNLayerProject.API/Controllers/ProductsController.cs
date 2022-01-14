@@ -50,6 +50,7 @@ namespace UdemyNLayerProject.API.Controllers
             return Created(string.Empty, this._mapper.Map<ProductDto>(newProduct));
         }
 
+        [ValidationFilter]
         [HttpPut]
         public IActionResult Update(UpdateProductDto updateProductDto)
         {
