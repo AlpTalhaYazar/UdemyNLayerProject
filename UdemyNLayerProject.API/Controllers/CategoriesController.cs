@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UdemyNLayerProject.API.DTOs;
+using UdemyNLayerProject.API.Filters;
 using UdemyNLayerProject.Core.Models;
 using UdemyNLayerProject.Core.Services;
 
@@ -26,14 +27,14 @@ namespace UdemyNLayerProject.API.Controllers
             var categories = await this._categoryService.GetAllAsync();
             return Ok(this._mapper.Map<IEnumerable<CategoryDto>>(categories));
         }
-
+        [ServiceFilter(typeof(NotFoundFilter<Category>))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var category = await this._categoryService.GetByIdAsync(id);
             return Ok(this._mapper.Map<CategoryDto>(category));
         }
-
+        [ServiceFilter(typeof(NotFoundFilter<Category>))]
         [HttpGet("{id}/products")]
         public async Task<IActionResult> GetWithProductsById(int id)
         {
@@ -55,6 +56,7 @@ namespace UdemyNLayerProject.API.Controllers
             return NoContent();
         }
 
+        [ServiceFilter(typeof(NotFoundFilter<Category>))]
         [HttpDelete("{id}")]
         public IActionResult Remove(int id)
         {

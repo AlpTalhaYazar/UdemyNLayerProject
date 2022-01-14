@@ -27,12 +27,14 @@ namespace UdemyNLayerProject.API.Controllers
             var products = await this._productService.GetAllAsync();
             return Ok(this._mapper.Map<IEnumerable<ProductDto>>(products));
         }
+        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var product = await this._productService.GetByIdAsync(id);
             return Ok(this._mapper.Map<ProductDto>(product));
         }
+        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         [HttpGet("{id}/category")]
         public async Task<IActionResult> GetWithCategoryById(int id)
         {
@@ -55,6 +57,7 @@ namespace UdemyNLayerProject.API.Controllers
             return NoContent();
         }
 
+        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         [HttpDelete("{id}")]
         public IActionResult Remove(int id)
         {
