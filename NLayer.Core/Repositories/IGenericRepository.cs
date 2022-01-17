@@ -7,7 +7,7 @@ namespace NLayer.Core.Repositories
         Task AddAsync(T entity);
         Task AddRangeAsync(IEnumerable<T> entities);
         Task<bool> AnyAsync(Expression<Func<T, bool>> expression);
-        Task<IQueryable<T>> GetAllAsync();
+        IQueryable<T> GetAll();
         Task<T> GetByIdAsync(int id);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
