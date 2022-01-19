@@ -7,14 +7,12 @@ using NLayer.Core.UnitOfWorks;
 
 namespace NLayer.Service.Services
 {
-    public class ProductService : Service<Product>, IProductService
+    public class ProductService<TDto> : Service<Product, TDto>, IProductService<TDto> where TDto : class
     {
-        private readonly IMapper _mapper;
         private readonly IProductRepository _productRepository;
-        
-        public ProductService(IGenericRepository<Product> repository, IUnitOfWork unitOfWork, IMapper mapper, IProductRepository productRepository) : base(repository, unitOfWork)
+
+        public ProductService(IMapper mapper, IUnitOfWork unitOfWork, IGenericRepository<Product> repository, IProductRepository productRepository) : base(mapper, unitOfWork, repository)
         {
-            _mapper = mapper;
             _productRepository = productRepository;
         }
 
@@ -26,5 +24,7 @@ namespace NLayer.Service.Services
 
             return CustomResponseDto<List<ProductWithCategoryDto>>.Success(200, productsDto);
         }
+
+
     }
 }
