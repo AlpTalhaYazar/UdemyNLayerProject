@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using NLayer.API.Filters;
 using NLayer.Core.DTOs;
+using NLayer.Core.Models;
 using NLayer.Core.Services;
 
 namespace NLayer.API.Controllers
@@ -24,6 +26,7 @@ namespace NLayer.API.Controllers
             return CreateActionResult(await _productService.GetAllAsync());
         }
 
+        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {

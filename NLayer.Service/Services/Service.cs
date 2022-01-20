@@ -4,6 +4,7 @@ using NLayer.Core.DTOs;
 using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
+using NLayer.Service.Exceptions;
 using System.Linq.Expressions;
 
 namespace NLayer.Service.Services
@@ -60,6 +61,9 @@ namespace NLayer.Service.Services
         public async Task<CustomResponseDto<TDto>> GetByIdAsync(int id)
         {
             var model = await _repository.GetByIdAsync(id);
+
+            if (model == null)
+                throw new NotFoundException($"{typeof(TEntity).Name} with {id} id not found.");
 
             var modelDto = _mapper.Map<TDto>(model);
 
