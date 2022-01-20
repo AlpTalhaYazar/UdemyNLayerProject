@@ -30,7 +30,9 @@ namespace NLayer.Service.Services
 
             await _unitOfWork.CommitAsync();
 
-            return CustomResponseDto<TDto>.Success(201, dto);
+            var responseDto = _mapper.Map<TDto>(model);
+
+            return CustomResponseDto<TDto>.Success(201, responseDto);
         }
 
         public async Task<CustomResponseDto<IEnumerable<TDto>>> AddRangeAsync(IEnumerable<TDto> dtos)
@@ -51,11 +53,11 @@ namespace NLayer.Service.Services
 
         public async Task<CustomResponseDto<IEnumerable<TDto>>> GetAllAsync()
         {
-            var objectsFromDb = await _repository.GetAll().ToListAsync();
+            var model = await _repository.GetAll().ToListAsync();
 
-            var customobjectDto = _mapper.Map<IEnumerable<TDto>>(objectsFromDb);
+            var responseDto = _mapper.Map<IEnumerable<TDto>>(model);
 
-            return CustomResponseDto<IEnumerable<TDto>>.Success(200, customobjectDto);
+            return CustomResponseDto<IEnumerable<TDto>>.Success(200, responseDto);
         }
 
         public async Task<CustomResponseDto<TDto>> GetByIdAsync(int id)

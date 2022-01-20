@@ -7,6 +7,7 @@ using NLayer.Repository.Repositories;
 using NLayer.Repository.UnitOfWork;
 using NLayer.Service.Services;
 using System.Reflection;
+using NLayer.Caching;
 using Module = Autofac.Module;
 
 namespace NLayer.API.Modules
@@ -15,11 +16,16 @@ namespace NLayer.API.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IGenericRepository<>)).InstancePerLifetimeScope();
-            builder.RegisterGeneric(typeof(Service<,>)).As(typeof(IService<,>)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(GenericRepository<>))
+                        .As(typeof(IGenericRepository<>)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(Service<,>))
+                        .As(typeof(IService<,>)).InstancePerLifetimeScope();
 
-            builder.RegisterGeneric(typeof(ProductService<>)).As(typeof(IProductService<>)).InstancePerLifetimeScope();
-            builder.RegisterGeneric(typeof(CategoryService<>)).As(typeof(ICategoryService<>)).InstancePerLifetimeScope();
+            //builder.RegisterGeneric(typeof(ProductService<>)).As(typeof(IProductService<>)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(ProductServiceWithCaching<>))
+                        .As(typeof(IProductService<>)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(CategoryService<>))
+                        .As(typeof(ICategoryService<>)).InstancePerLifetimeScope();
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
 
