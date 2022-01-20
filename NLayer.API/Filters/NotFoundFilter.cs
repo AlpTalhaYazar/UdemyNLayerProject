@@ -3,13 +3,12 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using NLayer.Core.DTOs;
 using NLayer.Core.Models;
 using NLayer.Core.Repositories;
-using NLayer.Core.Services;
 
 namespace NLayer.API.Filters
 {
     public class NotFoundFilter<T> : IAsyncActionFilter where T : BaseEntity
     {
-        private readonly IGenericRepository<T> _genericRepository; 
+        private readonly IGenericRepository<T> _genericRepository;
 
         public NotFoundFilter(IGenericRepository<T> genericRepository)
         {
