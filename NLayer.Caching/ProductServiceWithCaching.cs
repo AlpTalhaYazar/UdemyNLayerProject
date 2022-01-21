@@ -35,7 +35,7 @@ namespace NLayer.Caching
         public async Task CacheAllProductsAsync() =>
             _memoryCache.Set(CacheProductKey, await _productRepository.GetAll().ToListAsync());
 
-        public async Task<TDto> AddAsync(TDto dto)
+        public async Task<CustomResponseDto<TDto>> AddAsync(TDto dto)
         {
             var model = _mapper.Map<Product>(dto);
 
@@ -47,10 +47,10 @@ namespace NLayer.Caching
 
             var responseDto = _mapper.Map<TDto>(model);
 
-            return dto;
+            return CustomResponseDto<TDto>.Success(201, dto);
         }
 
-        public async Task<IEnumerable<TDto>> AddRangeAsync(IEnumerable<TDto> dtos)
+        public async Task<CustomResponseDto<IEnumerable<TDto>>> AddRangeAsync(IEnumerable<TDto> dtos)
         {
             var model = _mapper.Map<IEnumerable<Product>>(dtos);
 
@@ -62,7 +62,7 @@ namespace NLayer.Caching
 
             var responseDto = _mapper.Map<IEnumerable<TDto>>(model);
 
-            return responseDto;
+            return CustomResponseDto<IEnumerable<TDto>>.Success(201, responseDto);
         }
 
         public Task<bool> AnyAsync(Expression<Func<Product, bool>> expression)
@@ -70,16 +70,16 @@ namespace NLayer.Caching
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<TDto>> GetAllAsync()
+        public Task<CustomResponseDto<IEnumerable<TDto>>> GetAllAsync()
         {
             var model = _memoryCache.Get<List<Product>>(CacheProductKey);
 
             var responseDto = _mapper.Map<IEnumerable<TDto>>(model);
 
-            return Task.FromResult(responseDto);
+            return Task.FromResult(CustomResponseDto<IEnumerable<TDto>>.Success(200, responseDto));
         }
 
-        public Task<TDto> GetByIdAsync(int id)
+        public Task<CustomResponseDto<TDto>> GetByIdAsync(int id)
         {
             var model = Task.FromResult(
                 _memoryCache.Get<List<Product>>(CacheProductKey).FirstOrDefault(x => x.Id == id));
@@ -89,10 +89,10 @@ namespace NLayer.Caching
 
             var modelDto = _mapper.Map<TDto>(model);
 
-            return Task.FromResult(modelDto);
+            return Task.FromResult(CustomResponseDto<TDto>.Success(200, modelDto));
         }
 
-        public async Task RemoveAsync(TDto dto)
+        public async Task<CustomResponseDto<NoContentDto>> RemoveAsync(TDto dto)
         {
             var model = _mapper.Map<Product>(dto);
 
@@ -101,9 +101,11 @@ namespace NLayer.Caching
             await _unitOfWork.CommitAsync();
 
             await CacheAllProductsAsync();
+
+            return CustomResponseDto<NoContentDto>.Success(204);
         }
 
-        public async Task RemoveRangeAsync(IEnumerable<TDto> dtos)
+        public async Task<CustomResponseDto<NoContentDto>> RemoveRangeAsync(IEnumerable<TDto> dtos)
         {
             var model = _mapper.Map<IEnumerable<Product>>(dtos);
 
@@ -112,9 +114,11 @@ namespace NLayer.Caching
             await _unitOfWork.CommitAsync();
 
             await CacheAllProductsAsync();
+
+            return CustomResponseDto<NoContentDto>.Success(204);
         }
 
-        public async Task updateAsync(TDto dto)
+        public async Task<CustomResponseDto<NoContentDto>> updateAsync(TDto dto)
         {
             var model = _mapper.Map<Product>(dto);
 
@@ -123,6 +127,8 @@ namespace NLayer.Caching
             await _unitOfWork.CommitAsync();
 
             await CacheAllProductsAsync();
+
+            return CustomResponseDto<NoContentDto>.Success(204);
         }
 
         public IQueryable<TDto> Where(Expression<Func<Product, bool>> expression)
@@ -132,13 +138,13 @@ namespace NLayer.Caching
             return _mapper.Map<IQueryable<TDto>>(queryableModel);
         }
 
-        public async Task<List<ProductWithCategoryDto>> GetProductsWithCategoryAsync()
+        public async Task<CustomResponseDto<List<ProductWithCategoryDto>>> GetProductsWithCategoryAsync()
         {
             var model = await _productRepository.GetProductsWithCategoryAsync();
 
             var responseDto = _mapper.Map<List<ProductWithCategoryDto>>(model);
 
-            return responseDto;
+            return CustomResponseDto<List<ProductWithCategoryDto>>.Success(200, responseDto);
         }
     }
 }

@@ -15,10 +15,10 @@ namespace NLayer.Web.Controllers
             _productService = productService;
             _categoryService = categoryService;
         }
-
+        
         public async Task<IActionResult> Index()
         {
-            return View(await _productService.GetAllAsync());
+            return View((await _productService.GetAllAsync()).Data);
         }
 
         [HttpGet]
@@ -26,7 +26,7 @@ namespace NLayer.Web.Controllers
         {
             var categories = await _categoryService.GetAllAsync();
 
-            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+            ViewBag.Categories = new SelectList(categories.Data, "Id", "Name");
 
             return View();
         }
@@ -41,7 +41,7 @@ namespace NLayer.Web.Controllers
 
             var categories = await _categoryService.GetAllAsync();
 
-            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+            ViewBag.Categories = new SelectList(categories.Data, "Id", "Name");
 
             return View();
         }
@@ -52,7 +52,7 @@ namespace NLayer.Web.Controllers
 
             var categories = await _categoryService.GetAllAsync();
 
-            ViewBag.Categories = new SelectList(categories, "Id", "Name", product.CategoryId);
+            ViewBag.Categories = new SelectList(categories.Data, "Id", "Name", product.CategoryId);
 
             return View(product);
         }
@@ -67,7 +67,7 @@ namespace NLayer.Web.Controllers
 
             var categories = await _categoryService.GetAllAsync();
 
-            ViewBag.Categories = new SelectList(categories, "Id", "Name", productDto.CategoryId);
+            ViewBag.Categories = new SelectList(categories.Data, "Id", "Name", productDto.CategoryId);
 
             return View();
         }
@@ -75,7 +75,7 @@ namespace NLayer.Web.Controllers
         public async Task<IActionResult> Remove(int id)
         {
             var product = await _productService.GetByIdAsync(id);
-            await _productService.RemoveAsync(product);
+            await _productService.RemoveAsync(product.Data);
 
             return RedirectToAction(nameof(Index));
         }

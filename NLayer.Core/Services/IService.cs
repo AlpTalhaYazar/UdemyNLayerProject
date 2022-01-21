@@ -5,14 +5,14 @@ namespace NLayer.Core.Services
 {
     public interface IService<TEntity, TDto> where TEntity : class where TDto : class
     {
-        Task<TDto> AddAsync(TDto dto);
-        Task<IEnumerable<TDto>> AddRangeAsync(IEnumerable<TDto> dtos);
+        Task<CustomResponseDto<TDto>> AddAsync(TDto dto);
+        Task<CustomResponseDto<IEnumerable<TDto>>> AddRangeAsync(IEnumerable<TDto> dtos);
         Task<bool> AnyAsync(Expression<Func<TEntity, bool>> expression);
-        Task<IEnumerable<TDto>> GetAllAsync();
-        Task<TDto> GetByIdAsync(int id);
-        Task RemoveAsync(TDto dto);
-        Task RemoveRangeAsync(IEnumerable<TDto> dtos);
-        Task updateAsync(TDto dto);
+        Task<CustomResponseDto<IEnumerable<TDto>>> GetAllAsync();
+        Task<CustomResponseDto<TDto>> GetByIdAsync(int id);
+        Task<CustomResponseDto<NoContentDto>> RemoveAsync(TDto dto);
+        Task<CustomResponseDto<NoContentDto>> RemoveRangeAsync(IEnumerable<TDto> dtos);
+        Task<CustomResponseDto<NoContentDto>> updateAsync(TDto dto);
         IQueryable<TDto> Where(Expression<Func<TEntity, bool>> expression);
     }
 }

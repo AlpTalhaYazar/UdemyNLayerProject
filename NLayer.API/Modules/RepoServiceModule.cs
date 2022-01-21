@@ -21,8 +21,7 @@ namespace NLayer.API.Modules
             builder.RegisterGeneric(typeof(Service<,>))
                         .As(typeof(IService<,>)).InstancePerLifetimeScope();
 
-            //builder.RegisterGeneric(typeof(ProductService<>)).As(typeof(IProductService<>)).InstancePerLifetimeScope();
-            builder.RegisterGeneric(typeof(ProductServiceWithCaching<>))
+            builder.RegisterGeneric(typeof(ProductService<>))
                         .As(typeof(IProductService<>)).InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(CategoryService<>))
                         .As(typeof(ICategoryService<>)).InstancePerLifetimeScope();
