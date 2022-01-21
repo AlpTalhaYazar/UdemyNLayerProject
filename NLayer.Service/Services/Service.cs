@@ -22,7 +22,7 @@ namespace NLayer.Service.Services
             _repository = repository;
         }
 
-        public async Task<CustomResponseDto<TDto>> AddAsync(TDto dto)
+        public async Task<TDto> AddAsync(TDto dto)
         {
             var model = _mapper.Map<TEntity>(dto);
 
@@ -32,10 +32,10 @@ namespace NLayer.Service.Services
 
             var responseDto = _mapper.Map<TDto>(model);
 
-            return CustomResponseDto<TDto>.Success(201, responseDto);
+            return responseDto;
         }
 
-        public async Task<CustomResponseDto<IEnumerable<TDto>>> AddRangeAsync(IEnumerable<TDto> dtos)
+        public async Task<IEnumerable<TDto>> AddRangeAsync(IEnumerable<TDto> dtos)
         {
             var model = _mapper.Map<IEnumerable<TEntity>>(dtos);
 
@@ -43,7 +43,7 @@ namespace NLayer.Service.Services
 
             await _unitOfWork.CommitAsync();
 
-            return CustomResponseDto<IEnumerable<TDto>>.Success(201, dtos);
+            return dtos;
         }
 
         public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> expression)
@@ -51,16 +51,16 @@ namespace NLayer.Service.Services
             return await _repository.AnyAsync(expression);
         }
 
-        public async Task<CustomResponseDto<IEnumerable<TDto>>> GetAllAsync()
+        public async Task<IEnumerable<TDto>> GetAllAsync()
         {
             var model = await _repository.GetAll().ToListAsync();
 
             var responseDto = _mapper.Map<IEnumerable<TDto>>(model);
 
-            return CustomResponseDto<IEnumerable<TDto>>.Success(200, responseDto);
+            return responseDto;
         }
 
-        public async Task<CustomResponseDto<TDto>> GetByIdAsync(int id)
+        public async Task<TDto> GetByIdAsync(int id)
         {
             var model = await _repository.GetByIdAsync(id);
 
@@ -69,10 +69,10 @@ namespace NLayer.Service.Services
 
             var modelDto = _mapper.Map<TDto>(model);
 
-            return CustomResponseDto<TDto>.Success(200, modelDto);
+            return modelDto;
         }
 
-        public async Task<CustomResponseDto<NoContentDto>> RemoveAsync(TDto dto)
+        public async Task<NoContentDto> RemoveAsync(TDto dto)
         {
             var model = _mapper.Map<TEntity>(dto);
 
@@ -80,10 +80,10 @@ namespace NLayer.Service.Services
 
             await _unitOfWork.CommitAsync();
 
-            return CustomResponseDto<NoContentDto>.Success(204);
+            return new NoContentDto();
         }
 
-        public async Task<CustomResponseDto<NoContentDto>> RemoveRangeAsync(IEnumerable<TDto> dtos)
+        public async Task<NoContentDto> RemoveRangeAsync(IEnumerable<TDto> dtos)
         {
             var model = _mapper.Map<IEnumerable<TEntity>>(dtos);
 
@@ -91,10 +91,10 @@ namespace NLayer.Service.Services
 
             await _unitOfWork.CommitAsync();
 
-            return CustomResponseDto<NoContentDto>.Success(204);
+            return new NoContentDto();
         }
 
-        public async Task<CustomResponseDto<NoContentDto>> updateAsync(TDto dto)
+        public async Task<NoContentDto> updateAsync(TDto dto)
         {
             var model = _mapper.Map<TEntity>(dto);
 
@@ -102,7 +102,7 @@ namespace NLayer.Service.Services
 
             await _unitOfWork.CommitAsync();
 
-            return CustomResponseDto<NoContentDto>.Success(204);
+            return new NoContentDto();
         }
 
         public IQueryable<TDto> Where(Expression<Func<TEntity, bool>> expression)

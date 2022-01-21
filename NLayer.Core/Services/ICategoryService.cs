@@ -5,6 +5,6 @@ namespace NLayer.Core.Services
 {
     public interface ICategoryService<TDto> : IService<Category, TDto> where TDto : class
     {
-        Task<CustomResponseDto<CategoryWithProductsDto>> GetSingleCategoryByIdWithProductsAsync(int categoryId);
+        Task<CategoryWithProductsDto> GetSingleCategoryByIdWithProductsAsync(int categoryId);
     }
 }
