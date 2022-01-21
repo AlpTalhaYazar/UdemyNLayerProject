@@ -7,6 +7,7 @@ using NLayer.Web.Modules;
 using System.Reflection;
 using FluentValidation.AspNetCore;
 using NLayer.Service.Validations;
+using NLayer.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,9 @@ builder.Services.AddDbContext<AppDbContext>(optionsBuilder =>
             contextOptionsBuilder.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name);
         });
 });
+
+builder.Services.AddHttpClient<ProductApiService>(client =>
+    client.BaseAddress = new Uri(builder.Configuration["BaseUrl"]));
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 

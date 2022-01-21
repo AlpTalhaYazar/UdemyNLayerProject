@@ -52,9 +52,9 @@ namespace NLayer.Web.Controllers
 
             var categories = await _categoryService.GetAllAsync();
 
-            ViewBag.Categories = new SelectList(categories.Data, "Id", "Name", product.CategoryId);
+            ViewBag.Categories = new SelectList(categories.Data, "Id", "Name", product.Data.CategoryId);
 
-            return View(product);
+            return View(product.Data);
         }
         [HttpPost]
         public async Task<IActionResult> Update(ProductDto productDto)

@@ -21,7 +21,7 @@ namespace NLayer.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> GetProductsAsync()
         {
             return CreateActionResult(await _productService.GetAllAsync());
         }
