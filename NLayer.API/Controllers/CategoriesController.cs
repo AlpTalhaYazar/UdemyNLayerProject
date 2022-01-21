@@ -17,13 +17,13 @@ namespace NLayer.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> GetCategoriesAsync()
         {
             return CreateActionResult(await _categoryService.GetAllAsync());
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetCategoryById(int id)
         {
             return CreateActionResult(await _categoryService.GetByIdAsync(id));
         }

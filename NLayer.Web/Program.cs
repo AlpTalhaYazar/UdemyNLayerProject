@@ -27,6 +27,8 @@ builder.Services.AddDbContext<AppDbContext>(optionsBuilder =>
 
 builder.Services.AddHttpClient<ProductApiService>(client =>
     client.BaseAddress = new Uri(builder.Configuration["BaseUrl"]));
+builder.Services.AddHttpClient<CategoryApiService>(client =>
+    client.BaseAddress = new Uri(builder.Configuration["BaseUrl"]));
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
