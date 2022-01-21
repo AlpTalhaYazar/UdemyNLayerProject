@@ -19,7 +19,7 @@ namespace NLayer.Web.Modules
                         .As(typeof(IGenericRepository<>)).InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(Service<,>))
                         .As(typeof(IService<,>)).InstancePerLifetimeScope();
-            
+
             builder.RegisterGeneric(typeof(ProductService<>))
                         .As(typeof(IProductService<>)).InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(CategoryService<>))

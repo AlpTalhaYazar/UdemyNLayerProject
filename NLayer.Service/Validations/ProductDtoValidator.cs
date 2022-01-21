@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using FluentValidation.Results;
 using NLayer.Core.DTOs;
 
 namespace NLayer.Service.Validations

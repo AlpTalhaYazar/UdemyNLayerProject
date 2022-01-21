@@ -1,5 +1,5 @@
-﻿using System.Linq.Expressions;
-using NLayer.Core.DTOs;
+﻿using NLayer.Core.DTOs;
+using System.Linq.Expressions;
 
 namespace NLayer.Core.Services
 {
