@@ -11,16 +11,16 @@ namespace NLayer.Web.Services
             _httpClient = httpClient;
         }
 
-        public async Task<IEnumerable<CategoryDto>> GetCategoriesAsync()
+        public async Task<IEnumerable<CategoryDto>> GetAllAsync()
         {
             var response =
                 await _httpClient.GetFromJsonAsync<CustomResponseDto<IEnumerable<CategoryDto>>>(
-                    "products/GetCategoriesAsync");
+                    "products");
 
             return response.Data;
         }
 
-        public async Task<CategoryDto> GetCategoryByIdAsync(int id)
+        public async Task<CategoryDto> GetByIdAsync(int id)
         {
             var response = await _httpClient.GetFromJsonAsync<CustomResponseDto<CategoryDto>>($"products/{id}");
             return response.Data;
@@ -46,7 +46,7 @@ namespace NLayer.Web.Services
 
         public async Task<bool> RemoveAsync(int id)
         {
-            var response = await _httpClient.DeleteAsync($"products{id}");
+            var response = await _httpClient.DeleteAsync($"products/{id}");
 
             return response.IsSuccessStatusCode;
         }
