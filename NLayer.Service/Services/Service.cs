@@ -6,6 +6,7 @@ using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
 using NLayer.Service.Exceptions;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 
 namespace NLayer.Service.Services
 {
@@ -72,37 +73,31 @@ namespace NLayer.Service.Services
             return modelDto;
         }
 
-        public async Task<NoContentDto> RemoveAsync(TDto dto)
+        public async Task RemoveAsync(TDto dto)
         {
             var model = _mapper.Map<TEntity>(dto);
 
             _repository.Remove(model);
 
             await _unitOfWork.CommitAsync();
-
-            return new NoContentDto();
         }
 
-        public async Task<NoContentDto> RemoveRangeAsync(IEnumerable<TDto> dtos)
+        public async Task RemoveRangeAsync(IEnumerable<TDto> dtos)
         {
             var model = _mapper.Map<IEnumerable<TEntity>>(dtos);
 
             _repository.RemoveRange(model);
 
             await _unitOfWork.CommitAsync();
-
-            return new NoContentDto();
         }
 
-        public async Task<NoContentDto> updateAsync(TDto dto)
+        public async Task updateAsync(TDto dto)
         {
             var model = _mapper.Map<TEntity>(dto);
 
             _repository.Update(model);
 
             await _unitOfWork.CommitAsync();
-
-            return new NoContentDto();
         }
 
         public IQueryable<TDto> Where(Expression<Func<TEntity, bool>> expression)

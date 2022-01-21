@@ -6,25 +6,29 @@
 
 <table class="table table-striped">
     <thead>
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Stock</th>
-        <th>CreatedDate</th>
-    </tr>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>CreatedDate</th>
+            <th>Update</th>
+            <th>Remove</th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var product in Model)
-    {
-        <tr>
-            <td>@product.Id</td>
-            <td>@product.Name</td>
-            <td>@product.Price</td>
-            <td>@product.Stock</td>
-            <td>@product.CreatedDate</td>
-        </tr>
-    }
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@product.Price</td>
+                <td>@product.Stock</td>
+                <td>@product.CreatedDate</td>
+                <td><a class="btn btn-info" asp-controller="Products" asp-action="Update" asp-route-id="@product.Id">Update</a></td>
+                <td><a class="btn btn-danger" asp-controller="Products" asp-action="Remove" asp-route-id="@product.Id">Remove</a></td>
+            </tr>
+        }
     </tbody>
 
 </table>

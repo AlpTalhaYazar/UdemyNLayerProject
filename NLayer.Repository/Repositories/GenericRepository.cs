@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NLayer.Core.Repositories;
 using System.Linq.Expressions;
+using NLayer.Core.Models;
 
 namespace NLayer.Repository.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         protected readonly AppDbContext _dbContext;
         private readonly DbSet<T> _dbSet;
@@ -37,7 +38,7 @@ namespace NLayer.Repository.Repositories
 
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _dbSet.FindAsync(id);
+            return await _dbSet.AsNoTracking().Where(x=>x.Id == id).FirstOrDefaultAsync();
         }
 
         public void Remove(T entity)

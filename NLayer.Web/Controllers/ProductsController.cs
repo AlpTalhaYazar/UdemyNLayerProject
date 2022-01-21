@@ -45,5 +45,39 @@ namespace NLayer.Web.Controllers
 
             return View();
         }
+
+        public async Task<IActionResult> Update(int id)
+        {
+            var product = await _productService.GetByIdAsync(id);
+
+            var categories = await _categoryService.GetAllAsync();
+
+            ViewBag.Categories = new SelectList(categories, "Id", "Name", product.CategoryId);
+
+            return View(product);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(ProductDto productDto)
+        {
+            if (ModelState.IsValid)
+            {
+                await _productService.updateAsync(productDto);
+                return RedirectToAction(nameof(Index));
+            }
+
+            var categories = await _categoryService.GetAllAsync();
+
+            ViewBag.Categories = new SelectList(categories, "Id", "Name", productDto.CategoryId);
+
+            return View();
+        }
+
+        public async Task<IActionResult> Remove(int id)
+        {
+            var product = await _productService.GetByIdAsync(id);
+            await _productService.RemoveAsync(product);
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

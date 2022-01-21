@@ -92,7 +92,7 @@ namespace NLayer.Caching
             return Task.FromResult(modelDto);
         }
 
-        public async Task<NoContentDto> RemoveAsync(TDto dto)
+        public async Task RemoveAsync(TDto dto)
         {
             var model = _mapper.Map<Product>(dto);
 
@@ -101,11 +101,9 @@ namespace NLayer.Caching
             await _unitOfWork.CommitAsync();
 
             await CacheAllProductsAsync();
-
-            return new NoContentDto();
         }
 
-        public async Task<NoContentDto> RemoveRangeAsync(IEnumerable<TDto> dtos)
+        public async Task RemoveRangeAsync(IEnumerable<TDto> dtos)
         {
             var model = _mapper.Map<IEnumerable<Product>>(dtos);
 
@@ -114,11 +112,9 @@ namespace NLayer.Caching
             await _unitOfWork.CommitAsync();
 
             await CacheAllProductsAsync();
-
-            return new NoContentDto();
         }
 
-        public async Task<NoContentDto> updateAsync(TDto dto)
+        public async Task updateAsync(TDto dto)
         {
             var model = _mapper.Map<Product>(dto);
 
@@ -127,8 +123,6 @@ namespace NLayer.Caching
             await _unitOfWork.CommitAsync();
 
             await CacheAllProductsAsync();
-
-            return new NoContentDto();
         }
 
         public IQueryable<TDto> Where(Expression<Func<Product, bool>> expression)

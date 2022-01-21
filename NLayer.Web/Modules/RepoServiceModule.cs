@@ -25,7 +25,7 @@ namespace NLayer.Web.Modules
             builder.RegisterGeneric(typeof(CategoryService<>))
                         .As(typeof(ICategoryService<>)).InstancePerLifetimeScope();
 
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
 
             var apiAssembly = Assembly.GetExecutingAssembly();
 

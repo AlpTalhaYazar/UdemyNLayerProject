@@ -10,9 +10,9 @@ namespace NLayer.Core.Services
         Task<bool> AnyAsync(Expression<Func<TEntity, bool>> expression);
         Task<IEnumerable<TDto>> GetAllAsync();
         Task<TDto> GetByIdAsync(int id);
-        Task<NoContentDto> RemoveAsync(TDto dto);
-        Task<NoContentDto> RemoveRangeAsync(IEnumerable<TDto> dtos);
-        Task<NoContentDto> updateAsync(TDto dto);
+        Task RemoveAsync(TDto dto);
+        Task RemoveRangeAsync(IEnumerable<TDto> dtos);
+        Task updateAsync(TDto dto);
         IQueryable<TDto> Where(Expression<Func<TEntity, bool>> expression);
     }
 }
